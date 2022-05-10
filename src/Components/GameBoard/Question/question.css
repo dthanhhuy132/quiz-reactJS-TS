@@ -1,0 +1,4 @@
+.question {
+  font-size: var(--fs-2-3);
+  user-select: none;
+}

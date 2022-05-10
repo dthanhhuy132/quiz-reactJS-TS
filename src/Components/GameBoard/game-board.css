@@ -1,0 +1,43 @@
+.game-board {
+  margin-top: 100px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-board__question {
+  background-color: #fff;
+  padding: 20px 40px;
+
+  border-radius: var(--border-radius);
+  width: 800px;
+  height: 200px;
+
+  position: relative;
+}
+
+.question-index {
+  padding-top: 40px;
+  font-size: var(--fs-1-5);
+  user-select: none;
+}
+
+.question-index-number {
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-2);
+}
+
+.game-board__answer {
+  height: 370px;
+  width: 600px;
+}
+
+.is-time-out {
+  border: 2px solid red;
+  box-shadow: 2px 2px 17px red;
+}
+
+.sumit-button {
+  margin-top: 20px;
+}
