@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./App.css";
 import EndScreen from "./Components/EndSceen";
 import GameBoard from "./Components/GameBoard";
+import { PageContext } from "./Components/Provider/Provider";
 import StartScreen from "./Components/StartScreen";
 
 const App: React.FC = () => {
+  const { pageRouter, setPageRouter } = useContext(PageContext);
+
   return (
     <div className="App">
       <StartScreen

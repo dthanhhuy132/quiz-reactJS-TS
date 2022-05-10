@@ -1,20 +1,29 @@
 import "./game-board.css";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "../Common/Button";
 import Question from "../GameBoard/Question";
 import questions from "../../mockData";
+
 import Answer from "./Answer";
 import Clock from "./Clock";
+import PopUp from "../Popup";
+import { PageContext } from "../Provider/Provider";
+import handleMarkRusult from "./handleMark";
+import getAllCorrectAnswer from "./getCorrectAnswer";
 
 const userAnser: number[] = [];
 
 const GameBoard: React.FC = () => {
+  const { pageRouter, setPageRouter, setTotalScore, totalScore } =
+    useContext(PageContext);
+
   const [numberQuestion, setNumberQuestion] = useState(0);
   const [isFirstQuestion, setIsFirstQuestion] = useState(true);
   const [isLastQuestion, setIsLastQuestion] = useState(false);
   const [checkUserChooseAnser, setCheckUserChooseAnser] = useState<number>(10);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isShowPopup, setIsShowPopup] = useState(false);
 
   const [timeOut, setTimeOut] = useState(false);
 
@@ -39,6 +48,12 @@ const GameBoard: React.FC = () => {
 
   function handleSubmitQuestion() {
     setIsSubmitted(true);
+    setIsShowPopup(false);
+
+    let correctAnswer = getAllCorrectAnswer(questions);
+    let tempScore = handleMarkRusult(userAnser, correctAnswer);
+    setTotalScore(tempScore);
+    setPageRouter("end-page");
   }
 
   useEffect(() => {}, [isSubmitted]);
@@ -58,7 +73,9 @@ const GameBoard: React.FC = () => {
         className={`game-board__question 
          ${timeOut ? "is-time-out" : ""}`}
       >
-        <Clock handleTimeOut={handleCheckTimeOut} />
+        {pageRouter !== "start-page" && (
+          <Clock handleTimeOut={handleCheckTimeOut} isSubmitted={isSubmitted} />
+        )}
 
         <p className="question-index">
           <span>
@@ -111,9 +128,22 @@ const GameBoard: React.FC = () => {
         </Button>
       </div>
       <div className="sumit-button">
-        <Button warning handleOnClick={handleSubmitQuestion}>
-          Submit
-        </Button>
+        {!isSubmitted ? (
+          <Button warning handleOnClick={() => setIsShowPopup(true)}>
+            Submit
+          </Button>
+        ) : (
+          <p className="board-game-score">
+            Your Score: <span>{totalScore}</span>/{questions.length}
+          </p>
+        )}
+
+        <div className={`submit-popup ${isShowPopup && "popup-show"}`}>
+          <PopUp
+            handleClickOk={handleSubmitQuestion}
+            handleClickCancel={() => setIsShowPopup(false)}
+          />
+        </div>
       </div>
     </div>
   );

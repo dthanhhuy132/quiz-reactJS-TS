@@ -15,6 +15,11 @@
   position: relative;
 }
 
+.answer:hover {
+  background-color: var(--answer-bg-active);
+  color: #fff;
+}
+
 .answer-active,
 .answer-check {
   background-color: var(--answer-bg-active);

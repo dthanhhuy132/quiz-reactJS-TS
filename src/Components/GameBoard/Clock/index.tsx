@@ -1,18 +1,27 @@
 import "./clock.css";
 
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import useTimer from "./timer";
 import formatTimer from "./formatTimer";
 import setProgress from "./clockProgress";
+import { PageContext } from "../../Provider/Provider";
 
 interface ClockProps {
   m?: number;
   s?: number;
   newQuestion?: number;
   handleTimeOut: () => void;
+  isSubmitted?: boolean;
 }
 
-const Clock: React.FC<ClockProps> = ({ m = 0, s = 15, handleTimeOut }) => {
+const Clock: React.FC<ClockProps> = ({
+  m = 0,
+  s = 20,
+  handleTimeOut,
+  isSubmitted,
+}) => {
+  const { pageRouter } = useContext(PageContext);
+
   const [isShortTime, setIsShortTime] = useState(false);
   let { time, startTimer, stopTimer } = useTimer(m * 60 + s);
   if (time > 0) {
@@ -38,11 +47,17 @@ const Clock: React.FC<ClockProps> = ({ m = 0, s = 15, handleTimeOut }) => {
     }
   }
 
+  useEffect(() => {
+    if (pageRouter === "end-page" || curSecond === 0) {
+      stopTimer();
+    }
+  }, [pageRouter, curSecond]);
+
   if (curSecond === 0) {
   }
   return (
     <div className="clock">
-      {curSecond === 0 ? (
+      {curSecond === 0 || isSubmitted ? (
         <span className="clock__time clock__minute">End</span>
       ) : (
         <>

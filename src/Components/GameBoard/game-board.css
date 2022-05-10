@@ -40,4 +40,33 @@
 
 .sumit-button {
   margin-top: 20px;
+  position: relative;
+}
+
+.submit-popup {
+  position: absolute;
+  top: -300%;
+  min-width: 600px;
+  z-index: -1;
+}
+
+.popup-show {
+  z-index: 0;
+}
+
+.board-game-score {
+  margin-top: 20px;
+  padding: 2px 20px;
+
+  border: 1px solid red;
+  border-radius: var(--border-radius);
+
+  font-size: var(--fs-2);
+  font-weight: var(--fw-bold);
+
+  box-shadow: 1px 1px 10px red;
+}
+
+.board-game-score span {
+  font-size: 40px;
 }

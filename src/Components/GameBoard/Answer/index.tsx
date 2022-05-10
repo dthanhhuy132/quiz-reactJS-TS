@@ -25,16 +25,6 @@ const Answer: React.FC<AnswerProps> = ({
 }) => {
   const answerKey = ["a", "b", "c", "d"];
 
-  function handleMouseOver(e: any): void {
-    if (e.target.className === "answer-text") return;
-    e.target.classList.add("answer-active");
-  }
-
-  function handleMouseLeave(e: any): void {
-    if (e.target.className === "answer-text") return;
-    e.target.classList.remove("answer-active");
-  }
-
   const checkAnswerAfterSubmitted =
     isSubmitted && userSelectAnswerIndex === correctAnswerIndex;
 
@@ -53,8 +43,6 @@ const Answer: React.FC<AnswerProps> = ({
       
       
       `}
-      onMouseOver={(e) => handleMouseOver(e)}
-      onMouseLeave={(e) => handleMouseLeave(e)}
       onClick={answerClick}
     >
       {answerKey[answerIndex]}.{" "}

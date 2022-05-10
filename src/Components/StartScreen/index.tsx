@@ -1,7 +1,8 @@
 import "./start-screen.css";
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Button from "../Common/Button";
+import { PageContext } from "../Provider/Provider";
 
 interface StartScreen {
   title: string;
@@ -9,19 +10,19 @@ interface StartScreen {
 }
 
 const StartScreen: React.FC<StartScreen> = ({ title, subTitle }) => {
-  const [isStartGame, setStartGame] = useState(false);
+  const { pageRouter, setPageRouter } = useContext(PageContext);
 
   function handleStartGame() {
-    setStartGame(!isStartGame);
+    setPageRouter("");
   }
 
   return (
     <div
       className={`start-screen-wrapper ${
-        isStartGame ? "start-screen-show" : "start-screen-close"
+        pageRouter === "start-page" ? "start-screen-show" : "start-screen-close"
       }`}
     >
-      {isStartGame && (
+      {pageRouter === "start-page" && (
         <div className="start-screen">
           <h1>{title}</h1>
           <p>{subTitle}</p>

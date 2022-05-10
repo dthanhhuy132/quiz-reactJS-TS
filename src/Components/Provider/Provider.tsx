@@ -8,14 +8,14 @@ interface PageContextInterface {
 }
 
 const PageProvider: React.FC<PageContextInterface> = ({ children }) => {
-  const [isStartScreen, setIsStartScreen] = useState(false);
-  const [isEndScreen, setIsEndScreen] = useState(false);
+  const [pageRouter, setPageRouter] = useState("start-page");
+  const [totalScore, setTotalScore] = useState(0);
 
   const valueCtx = {
-    isStartScreen,
-    setIsStartScreen,
-    isEndScreen,
-    setIsEndScreen,
+    pageRouter,
+    setPageRouter,
+    totalScore,
+    setTotalScore,
   };
 
   return (

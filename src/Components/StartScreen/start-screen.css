@@ -50,6 +50,7 @@
   padding: 50px;
   min-width: 550px;
   border-radius: var(--border-radius);
+  box-shadow: 1px 1px 10px rgb(154, 150, 150);
 }
 
 .start-screen h1 {
